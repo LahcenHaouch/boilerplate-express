@@ -49,13 +49,20 @@ app.get('/:word/echo', function(req, res) {
 })
 
 app.get('/name', function(req, res) {
-  const {fisrt, last} = req.query
+  const {first, last} = req.query
   res.json({
-    name: `${fisrt} ${last}`
+    name: `${first} ${last}`
   })
 })
 
 app.use(bodyParser.urlencoded({extended: false}))
+
+app.post('/name', function(req, res) {
+  const { first, last} = req.body
+  res.json({
+    name: `${first} ${last}`
+  })
+})
 
 app.use(express.static(__dirname + '/public'))
 
