@@ -18,6 +18,15 @@ app.get('/json', function(req, res) {
 })
 
 app.use(express.static(__dirname + '/public'))
+app.use(function(req, res, next) {
+  const method = req.method
+  const path = req.path
+  const ip = req.ip
+
+  console.log(`${method} ${path} - ${ip}`)
+
+  next()
+})
 
 
 
