@@ -38,6 +38,14 @@ app.get('/now', function(req, res, next) {
   })
 })
 
+app.get('/:word/echo', function(req, res) {
+  const { word: echo } = req.params
+
+  res.json({
+    echo,
+  })
+})
+
 app.use(express.static(__dirname + '/public'))
 
 
