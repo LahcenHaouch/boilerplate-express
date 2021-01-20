@@ -46,6 +46,13 @@ app.get('/:word/echo', function(req, res) {
   })
 })
 
+app.get('/name', function(req, res) {
+  const {fisrt, last} = req.query
+  res.json({
+    name: `${fisrt} ${last}`
+  })
+})
+
 app.use(express.static(__dirname + '/public'))
 
 
