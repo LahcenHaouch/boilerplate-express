@@ -3,6 +3,16 @@ var app = express();
 
 console.log('Hello World')
 
+app.use(function(req, res, next) {
+  const method = req.method
+  const path = req.path
+  const ip = req.ip
+
+  console.log(`${method} ${path} - ${ip}`)
+
+  next()
+})
+
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/views/index.html')
 })
@@ -17,16 +27,18 @@ app.get('/json', function(req, res) {
   })
 })
 
-app.use(express.static(__dirname + '/public'))
-app.use(function(req, res, next) {
-  const method = req.method
-  const path = req.path
-  const ip = req.ip
-
-  console.log(`${method} ${path} - ${ip}`)
-
+app.get('/now', function(req, res, next) {
+  req.time = new Date().toString()
   next()
+}, function(req, res) {
+  const {time} = req
+
+  res.json({
+    time,
+  })
 })
+
+app.use(express.static(__dirname + '/public'))
 
 
 
